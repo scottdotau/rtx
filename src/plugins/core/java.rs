@@ -232,6 +232,25 @@ impl Plugin for JavaPlugin {
         )]);
         Ok(map)
     }
+
+    fn legacy_filenames(&self, _settings: &Settings) -> Result<Vec<String>> {
+        Ok(vec![".java-version".into(), ".sdkmanrc".into()])
+    }
+
+    fn parse_legacy_file(&self, path: &Path, _settings: &Settings) -> Result<String> {
+        let mut version = fs::read_to_string(path)?;
+        if path.file_name() == Some(".sdkmanrc".as_ref()) {
+            version = version
+                .lines()
+                .find(|l| l.starts_with("java"))
+                .unwrap_or("java=")
+                .split_once('=')
+                .unwrap_or_default()
+                .1
+                .to_string();
+        }
+        Ok(version)
+    }
 }
 
 fn os() -> &'static str {
