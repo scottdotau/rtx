@@ -15,6 +15,7 @@ pub use settings::{MissingRuntimeBehavior, Settings};
 use crate::config::config_file::legacy_version::LegacyVersionFile;
 use crate::config::config_file::rtx_toml::RtxToml;
 use crate::config::config_file::{ConfigFile, ConfigFileType};
+use crate::config::settings2::Settings2;
 use crate::config::tracking::Tracker;
 use crate::file::display_path;
 use crate::plugins::core::{CORE_PLUGINS, EXPERIMENTAL_CORE_PLUGINS};
@@ -25,6 +26,7 @@ use crate::{dirs, env, file, hook_env};
 
 pub mod config_file;
 mod settings;
+pub mod settings2;
 mod tracking;
 
 type AliasMap = BTreeMap<PluginName, BTreeMap<String, String>>;
@@ -34,6 +36,7 @@ type ToolMap = BTreeMap<PluginName, Arc<Tool>>;
 #[derive(Debug, Default)]
 pub struct Config {
     pub settings: Settings,
+    pub settings2: Settings2,
     pub global_config: RtxToml,
     pub config_files: ConfigMap,
     pub tools: ToolMap,
@@ -49,7 +52,10 @@ pub struct Config {
 
 impl Config {
     pub fn load() -> Result<Self> {
+        let mut settings2 = Settings2::default();
+        settings2.load_env(env::vars().collect());
         let global_config = load_rtxrc()?;
+        settings2.apply(global_config.settings2());
         let mut settings_b = global_config.settings();
         let settings = settings_b.build();
         let config_filenames = load_config_filenames(&settings, &BTreeMap::new());
@@ -102,6 +108,7 @@ impl Config {
             project_root: get_project_root(&config_files),
             config_files,
             settings,
+            settings2,
             global_config,
             tools,
             should_exit_early,

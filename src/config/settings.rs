@@ -1,6 +1,7 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt::{Debug, Display, Formatter};
 use std::path::PathBuf;
+use std::str::FromStr;
 use std::time::Duration;
 
 use log::LevelFilter;
@@ -262,6 +263,22 @@ impl Display for MissingRuntimeBehavior {
             MissingRuntimeBehavior::Prompt => write!(f, "prompt"),
             MissingRuntimeBehavior::Warn => write!(f, "warn"),
             MissingRuntimeBehavior::Ignore => write!(f, "ignore"),
+        }
+    }
+}
+
+#[derive(Debug, Eq, PartialEq)]
+pub struct ParseMissingRuntimeBehaviorError;
+impl FromStr for MissingRuntimeBehavior {
+    type Err = ParseMissingRuntimeBehaviorError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "autoinstall" => Ok(MissingRuntimeBehavior::AutoInstall),
+            "prompt" => Ok(MissingRuntimeBehavior::Prompt),
+            "warn" => Ok(MissingRuntimeBehavior::Warn),
+            "ignore" => Ok(MissingRuntimeBehavior::Ignore),
+            _ => Err(ParseMissingRuntimeBehaviorError),
         }
     }
 }

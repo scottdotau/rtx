@@ -12,7 +12,9 @@ use toml_edit::{table, value, Array, Document, Item, Value};
 
 use crate::config::config_file::{ConfigFile, ConfigFileType};
 use crate::config::settings::SettingsBuilder;
-use crate::config::{config_file, AliasMap, MissingRuntimeBehavior};
+use crate::config::settings2::SettingsKey::Experimental;
+use crate::config::settings2::{Settings2, SettingsKey};
+use crate::config::{config_file, settings2, AliasMap, MissingRuntimeBehavior};
 use crate::errors::Error::UntrustedConfig;
 use crate::file::create_dir_all;
 use crate::plugins::{unalias_plugin, PluginName};
@@ -33,6 +35,7 @@ pub struct RtxToml {
     env_remove: Vec<String>,
     path_dirs: Vec<PathBuf>,
     settings: SettingsBuilder,
+    settings2: Settings2,
     alias: AliasMap,
     doc: Document,
     plugins: HashMap<String, String>,
@@ -83,7 +86,10 @@ impl RtxToml {
                 "env" => self.parse_env(k, v)?,
                 "alias" => self.alias = self.parse_alias(k, v)?,
                 "tools" => self.toolset = self.parse_toolset(k, v)?,
-                "settings" => self.settings = self.parse_settings(k, v)?,
+                "settings" => {
+                    self.settings = self.parse_settings(k, v)?;
+                    self.settings2 = self.parse_settings2(k, v)?;
+                }
                 "plugins" => self.plugins = self.parse_plugins(k, v)?,
                 _ => Err(eyre!("unknown key: {}", k))?,
             }
@@ -94,6 +100,9 @@ impl RtxToml {
 
     pub fn settings(&self) -> SettingsBuilder {
         self.settings.clone()
+    }
+    pub fn settings2(&self) -> HashMap<SettingsKey, settings2::Value> {
+        self.settings2.clone()
     }
 
     fn parse_env_file(&mut self, k: &str, v: &Item) -> Result<()> {
@@ -378,6 +387,66 @@ impl RtxToml {
             }
             _ => parse_error!(key, v, "string")?,
         }
+    }
+
+    fn parse_settings2(&mut self, key: &str, v: &Item) -> Result<SettingsBuilder> {
+        let mut settings = Settings2::default();
+
+        match v.as_table_like() {
+            Some(table) => {
+                for (config_key, v) in table.iter() {
+                    let k = format!("{}.{}", key, config_key);
+                    match config_key.to_lowercase().as_str() {
+                        "experimental" => settings.set_bool(Experimental, self.parse_bool(&k, v)?),
+                        // "missing_runtime_behavior" => {
+                        //     settings.missing_runtime_behavior =
+                        //         Some(self.parse_missing_runtime_behavior(&k, v)?)
+                        // }
+                        // "legacy_version_file" => {
+                        //     settings.legacy_version_file = Some(self.parse_bool(&k, v)?)
+                        // }
+                        // "legacy_version_file_disable_tools" => {
+                        //     settings.legacy_version_file_disable_tools =
+                        //         self.parse_string_array(&k, v)?.into_iter().collect()
+                        // }
+                        // "always_keep_download" => {
+                        //     settings.always_keep_download = Some(self.parse_bool(&k, v)?)
+                        // }
+                        // "always_keep_install" => {
+                        //     settings.always_keep_install = Some(self.parse_bool(&k, v)?)
+                        // }
+                        // "plugin_autoupdate_last_check_duration" => {
+                        //     settings.plugin_autoupdate_last_check_duration =
+                        //         Some(self.parse_duration_minutes(&k, v)?)
+                        // }
+                        // "trusted_config_paths" => {
+                        //     settings.trusted_config_paths =
+                        //         self.parse_paths(&k, v)?.into_iter().collect();
+                        // }
+                        // "verbose" => settings.verbose = Some(self.parse_bool(&k, v)?),
+                        // "asdf_compat" => settings.asdf_compat = Some(self.parse_bool(&k, v)?),
+                        // "jobs" => settings.jobs = Some(self.parse_usize(&k, v)?),
+                        // "shorthands_file" => {
+                        //     settings.shorthands_file = Some(self.parse_path(&k, v)?)
+                        // }
+                        // "disable_default_shorthands" => {
+                        //     settings.disable_default_shorthands = Some(self.parse_bool(&k, v)?)
+                        // }
+                        // "disable_tools" => {
+                        //     settings.disable_tools =
+                        //         self.parse_string_array(&k, v)?.into_iter().collect()
+                        // }
+                        // "log_level" => settings.log_level = Some(self.parse_log_level(&k, v)?),
+                        // "raw" => settings.raw = Some(self.parse_bool(&k, v)?),
+                        // _ => Err(eyre!("Unknown config setting: {}", k))?,
+                        _ => {}
+                    };
+                }
+            }
+            None => parse_error!("settings", v, "table")?,
+        }
+
+        Ok(settings)
     }
 
     fn parse_settings(&mut self, key: &str, v: &Item) -> Result<SettingsBuilder> {

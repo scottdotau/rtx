@@ -4,6 +4,7 @@ use indoc::indoc;
 use log::LevelFilter;
 
 use crate::cli::command::Command;
+use crate::config::settings2::SettingsKey::{Jobs, MissingRuntimeBehavior, Raw, Verbose};
 use crate::config::Config;
 use crate::config::MissingRuntimeBehavior::AutoInstall;
 use crate::output::Output;
@@ -204,20 +205,29 @@ impl Cli {
         }
         if let Some(jobs) = matches.get_one::<usize>("jobs") {
             config.settings.jobs = *jobs;
+            config.settings2.set_int(Jobs, *jobs);
         }
-        if let Some(raw) = matches.get_one::<bool>("raw") {
-            config.settings.raw = *raw;
+        if let Some(&raw) = matches.get_one::<bool>("raw") {
+            config.settings.raw = raw;
+            if raw {
+                config.settings2.set_bool(Raw, raw);
+            }
         }
         if let Some(true) = matches.get_one::<bool>("install-missing") {
             config.settings.missing_runtime_behavior = AutoInstall;
+            let val = AutoInstall.to_string();
+            config.settings2.set_str(MissingRuntimeBehavior, &val);
         }
         if *matches.get_one::<u8>("verbose").unwrap() > 0 {
             config.settings.verbose = true;
+            config.settings2.set_bool(Verbose, true);
         }
         if config.settings.raw {
             config.settings.jobs = 1;
             config.settings.verbose = true;
         }
+        config.settings2.reset();
+        dbg!(&config.settings2);
         if let Some((command, sub_m)) = matches.subcommand() {
             external::execute(&config, command, sub_m, self.external_commands)?;
         }

@@ -4,16 +4,17 @@ use std::env;
 use std::fs::{create_dir_all, File, OpenOptions};
 use std::path::PathBuf;
 
+use crate::config::settings2::Settings2;
 use color_eyre::eyre::Result;
 use simplelog::*;
 
-pub fn init(log_level: LevelFilter, log_file_level: LevelFilter) {
+pub fn init(cfg: &Settings2) {
     let mut loggers: Vec<Box<dyn SharedLogger>> = vec![];
-    loggers.push(init_term_logger(log_level));
+    loggers.push(init_term_logger(cfg.log_level));
 
     if let Ok(log) = env::var("RTX_LOG_FILE") {
         let log_file = PathBuf::from(log);
-        if let Some(logger) = init_write_logger(log_file_level, log_file) {
+        if let Some(logger) = init_write_logger(cfg.log_file_level, log_file) {
             loggers.push(logger)
         }
     }

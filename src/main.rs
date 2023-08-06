@@ -10,6 +10,7 @@ use console::{style, Term};
 
 use crate::cli::version::VERSION;
 use crate::cli::Cli;
+use crate::config::settings2::Settings2;
 use crate::config::Config;
 use crate::output::Output;
 
@@ -57,11 +58,12 @@ mod ui;
 
 fn main() -> Result<()> {
     color_eyre::install()?;
-    let log_level = *env::RTX_LOG_LEVEL;
-    logger::init(log_level, *env::RTX_LOG_FILE_LEVEL);
+    let cfg = Settings2::default();
+    let log_level = cfg.log_level;
+    logger::init(&cfg);
     handle_ctrlc();
 
-    match run(&env::ARGS).with_section(|| VERSION.to_string().header("Version:")) {
+    match run().with_section(|| VERSION.to_string().header("Version:")) {
         Ok(()) => Ok(()),
         Err(err) if log_level < log::LevelFilter::Debug => {
             display_friendly_err(err);
@@ -71,7 +73,7 @@ fn main() -> Result<()> {
     }
 }
 
-fn run(args: &Vec<String>) -> Result<()> {
+fn run() -> Result<()> {
     let out = &mut Output::new();
 
     // show version before loading config in case of error
@@ -81,12 +83,12 @@ fn run(args: &Vec<String>) -> Result<()> {
     }
 
     let config = Config::load()?;
-    let config = shims::handle_shim(config, args, out)?;
+    let config = shims::handle_shim(config, &env::ARGS, out)?;
     if config.should_exit_early {
         return Ok(());
     }
     let cli = Cli::new_with_external_commands(&config);
-    cli.run(config, args, out)
+    cli.run(config, &env::ARGS, out)
 }
 
 fn handle_ctrlc() {
