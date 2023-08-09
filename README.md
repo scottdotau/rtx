@@ -1,31 +1,31 @@
 <div align="center">
-<a href="https://github.com/jdxcode/rtx"><picture>
+<a href="https://github.com/jdxcode/jkl"><picture>
   <source media="(prefers-color-scheme: dark)" width="617" srcset="./docs/logo-dark@2x.png">
-  <img alt="rtx logo" width="617" src="./docs/logo-light@2x.png">
+  <img alt="jkl logo" width="617" src="./docs/logo-light@2x.png">
 </picture></a>
 <br/>
-<a href="https://crates.io/crates/rtx-cli"><img alt="Crates.io" src="https://img.shields.io/crates/v/rtx-cli?style=for-the-badge"></a>
-<a href="https://github.com/jdxcode/rtx/blob/main/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/jdxcode/rtx?color=%2320A920&style=for-the-badge"></a>
-<a href="https://github.com/jdxcode/rtx/actions/workflows/rtx.yml"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/jdxcode/rtx/rtx.yml?color=%2320A920&style=for-the-badge"></a>
-<a href="https://codecov.io/gh/jdxcode/rtx"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/jdxcode/rtx?color=%2320A920&style=for-the-badge"></a>
+<a href="https://crates.io/crates/jkl-cli"><img alt="Crates.io" src="https://img.shields.io/crates/v/jkl-cli?style=for-the-badge"></a>
+<a href="https://github.com/jdxcode/jkl/blob/main/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/jdxcode/jkl?color=%2320A920&style=for-the-badge"></a>
+<a href="https://github.com/jdxcode/jkl/actions/workflows/jkl.yml"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/jdxcode/jkl/jkl.yml?color=%2320A920&style=for-the-badge"></a>
+<a href="https://codecov.io/gh/jdxcode/jkl"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/jdxcode/jkl?color=%2320A920&style=for-the-badge"></a>
 <a href="https://discord.gg/mABnUDvP57"><img alt="Discord" src="https://img.shields.io/discord/1066429325269794907?color=%23738ADB&style=for-the-badge"></a>
 <p><em>Polyglot runtime manager (asdf rust clone)</em></p>
 </div>
 
 ## Features
 
-- **asdf-compatible** - rtx is compatible with asdf plugins and `.tool-versions` files. It can be used as a drop-in replacement.
+- **asdf-compatible** - jkl is compatible with asdf plugins and `.tool-versions` files. It can be used as a drop-in replacement.
 - **Polyglot** - compatible with any language, so no more figuring out how nvm, nodenv, pyenv, etc work individually—just use 1 tool.
-- **Fast** - rtx is written in Rust and is very fast. 20x-200x faster than asdf.
-- **No shims** - shims cause problems, they break `which`, and add overhead. By default, rtx
+- **Fast** - jkl is written in Rust and is very fast. 20x-200x faster than asdf.
+- **No shims** - shims cause problems, they break `which`, and add overhead. By default, jkl
   does not use them—however you can if you want to.
 - **Fuzzy matching and aliases** - It's enough to just say you want "v20" of node, or the "lts"
-  version. rtx will figure out the right version without you needing to specify an exact version.
+  version. jkl will figure out the right version without you needing to specify an exact version.
 - **Arbitrary env vars** - Set custom env vars when in a project directory like `NODE_ENV=production` or `AWS_PROFILE=staging`.
 
 ## 30 Second Demo
 
-The following shows using rtx to install different versions
+The following shows using jkl to install different versions
 of [node](https://nodejs.org).
 Note that calling `which node` gives us a real path to node, not a shim.
 
@@ -33,33 +33,33 @@ Note that calling `which node` gives us a real path to node, not a shim.
 
 ## Quickstart
 
-Install rtx on macOS (other methods [here](#installation)):
+Install jkl on macOS (other methods [here](#installation)):
 
 ```sh-session
-$ curl https://rtx.pub/rtx-latest-macos-arm64 > ~/bin/rtx
-$ chmod +x ~/bin/rtx
-$ rtx --version
-rtx 1.35.8
+$ curl https://jkl.pub/jkl-latest-macos-arm64 > ~/bin/jkl
+$ chmod +x ~/bin/jkl
+$ jkl --version
+jkl 1.35.8
 ```
 
-Hook rtx into your shell (pick the right one for your shell):
+Hook jkl into your shell (pick the right one for your shell):
 
 ```sh-session
-# note this assumes rtx is located at ~/bin/rtx
-echo 'eval "$(~/bin/rtx activate bash)"' >> ~/.bashrc
-echo 'eval "$(~/bin/rtx activate zsh)"' >> ~/.zshrc
-echo '~/bin/rtx activate fish | source' >> ~/.config/fish/config.fish
+# note this assumes jkl is located at ~/bin/jkl
+echo 'eval "$(~/bin/jkl activate bash)"' >> ~/.bashrc
+echo 'eval "$(~/bin/jkl activate zsh)"' >> ~/.zshrc
+echo '~/bin/jkl activate fish | source' >> ~/.config/fish/config.fish
 ```
 
 > **Warning**
 >
-> If you use direnv with `layout python` or other logic that needs to reference rtx runtimes inside
+> If you use direnv with `layout python` or other logic that needs to reference jkl runtimes inside
 > of an `.envrc`, see the [direnv section](#direnv) below.
 
 Install a runtime and set it as the global default:
 
 ```sh-session
-$ rtx use --global node@20
+$ jkl use --global node@20
 $ node -v
 v20.0.0
 ```
@@ -82,11 +82,11 @@ v20.0.0
 - [Uninstalling](#uninstalling)
 - [Shebang](#shebang)
 - [Configuration](#configuration)
-  - [`.rtx.toml`](#rtxtoml)
+  - [`.jkl.toml`](#jkltoml)
   - [Legacy version files](#legacy-version-files)
   - [`.tool-versions`](#tool-versions)
   - [Scopes](#scopes)
-  - [Global config: `~/.config/rtx/config.toml`](#global-config-configrtxconfigtoml)
+  - [Global config: `~/.config/jkl/config.toml`](#global-config-configjklconfigtoml)
   - [Environment variables](#environment-variables)
 - [Aliases](#aliases)
 - [Plugins](#plugins)
@@ -94,8 +94,8 @@ v20.0.0
 - [Versioning](#versioning)
   - [Calver Breaking Changes](#calver-breaking-changes)
 - [Directories](#directories)
-  - [`~/.config/rtx`](#configrtx)
-  - [`~/.cache/rtx`](#cachertx)
+  - [`~/.config/jkl`](#configjkl)
+  - [`~/.cache/jkl`](#cachejkl)
   - [`~/.local/share/rtx`](#localsharertx)
 - [Templates](#templates)
 - [&#91;experimental&#93; Config Environments](#experimental-config-environments)
@@ -173,100 +173,100 @@ v20.0.0
   - [`rtx use [OPTIONS] [TOOL@VERSION]...`](#rtx-use-options-toolversion)
   - [`rtx version`](#rtx-version)
   - [`rtx where <TOOL@VERSION>`](#rtx-where-toolversion)
-  - [`rtx which [OPTIONS] <BIN_NAME>`](#rtx-which-options-bin_name)
+  - [`rtx which [OPTIONS] <BIN_NAME>`](#jkl-which-options-bin_name)
 
 </details>
 <!-- AUTO-GENERATED-CONTENT:END -->
 
 ## About
 
-_New developer? Try reading the [Beginner's Guide](https://dev.to/jdxcode/beginners-guide-to-rtx-ac4) for a gentler introduction._
+_New developer? Try reading the [Beginner's Guide](https://dev.to/jdxcode/beginners-guide-to-jkl-ac4) for a gentler introduction._
 
-rtx is a tool for managing programming language and tool versions. For example, use this to install
-a particular version of node.js and ruby for a project. Using `rtx activate`, you can have your
+jkl is a tool for managing programming language and tool versions. For example, use this to install
+a particular version of node.js and ruby for a project. Using `jkl activate`, you can have your
 shell automatically switch to the correct node and ruby versions when you `cd` into the project's
 directory[^cd]. Other projects on your machine can use a different set of versions.
 
-rtx is inspired by [asdf](https://asdf-vm.com) and uses asdf's vast [plugin ecosystem](https://github.com/asdf-vm/asdf-plugins)
+jkl is inspired by [asdf](https://asdf-vm.com) and uses asdf's vast [plugin ecosystem](https://github.com/asdf-vm/asdf-plugins)
 under the hood. However, it is _much_ faster than asdf and has a more friendly user experience.
-For more on how rtx compares to asdf, [see below](#comparison-to-asdf).
+For more on how jkl compares to asdf, [see below](#comparison-to-asdf).
 
-rtx can be configured in many ways. The most typical is by `.rtx.toml`, but it's also compatible
+jkl can be configured in many ways. The most typical is by `.jkl.toml`, but it's also compatible
 with asdf `.tool-versions` files. It can also use idiomatic version files like `.node-version` and
 `.ruby-version`. See [Configuration](#configuration) for more.
 
 ### How it works
 
-rtx hooks into your shell (with `rtx activate zsh`) and sets the `PATH`
+jkl hooks into your shell (with `jkl activate zsh`) and sets the `PATH`
 environment variable to point your shell to the correct runtime binaries. When you `cd` into a
-directory[^cd] containing a `.tool-versions`/`.rtx.toml` file, rtx will automatically set the
+directory[^cd] containing a `.tool-versions`/`.jkl.toml` file, jkl will automatically set the
 appropriate tool versions in `PATH`.
 
-After activating, every time your prompt displays it will call `rtx hook-env` to fetch new
+After activating, every time your prompt displays it will call `jkl hook-env` to fetch new
 environment variables.
-This should be very fast. It exits early if the directory wasn't changed or `.tool-versions`/`.rtx.toml` files haven't been modified.
+This should be very fast. It exits early if the directory wasn't changed or `.tool-versions`/`.jkl.toml` files haven't been modified.
 
-Unlike asdf which uses shim files to dynamically locate runtimes when they're called, rtx modifies
+Unlike asdf which uses shim files to dynamically locate runtimes when they're called, jkl modifies
 `PATH` ahead of time so the runtimes are called directly. This is not only faster since it avoids
 any overhead, but it also makes it so commands like `which node` work as expected. This also
 means there isn't any need to run `asdf reshim` after installing new runtime binaries.
 
-You should note that rtx does not directly install these tools.
+You should note that jkl does not directly install these tools.
 Instead, it leverages plugins to install runtimes.
 See [plugins](#plugins) below.
 
-[^cd]: Note that rtx does not modify "cd". It actually runs every time the prompt is _displayed_.
-See the [FAQ](#what-does-rtx-activate-do).
+[^cd]: Note that jkl does not modify "cd". It actually runs every time the prompt is _displayed_.
+See the [FAQ](#what-does-jkl-activate-do).
 
 ### Common commands
 
-    rtx install node@20.0.0  Install a specific version number
-    rtx install node@20      Install a fuzzy version number
-    rtx use node@20          Use node-20.x in current project
-    rtx use -g node@20       Use node-20.x as global default
+    jkl install node@20.0.0  Install a specific version number
+    jkl install node@20      Install a fuzzy version number
+    jkl use node@20          Use node-20.x in current project
+    jkl use -g node@20       Use node-20.x as global default
 
-    rtx install node         Install the current version specified in .tool-versions/.rtx.toml
-    rtx use node@latest      Use latest node in current directory
-    rtx use -g node@system   Use system node as global default
+    jkl install node         Install the current version specified in .tool-versions/.jkl.toml
+    jkl use node@latest      Use latest node in current directory
+    jkl use -g node@system   Use system node as global default
 
-    rtx x node@20 -- node app.js  Run `node app.js` node-20.x on PATH
+    jkl x node@20 -- node app.js  Run `node app.js` node-20.x on PATH
 
 ## Installation
 
-Installing rtx consists of two steps.
+Installing jkl consists of two steps.
 1. Download the binary.
-   This depends on the device and operating system you are running rtx in.
+   This depends on the device and operating system you are running jkl in.
 1. Register a shell hook.
    This depends on the shell you are using.
-   Read more about this step in the [FAQ](#what-does-rtx-activate-do).
+   Read more about this step in the [FAQ](#what-does-jkl-activate-do).
 
 ### Download binary
 
 #### Standalone
 
-Note that it isn't necessary for `rtx` to be on `PATH`. If you run the activate script in your rc
-file, rtx will automatically add itself to `PATH`.
+Note that it isn't necessary for `jkl` to be on `PATH`. If you run the activate script in your rc
+file, jkl will automatically add itself to `PATH`.
 
 ```
-curl https://rtx.pub/install.sh | sh
+curl https://jkl.pub/install.sh | sh
 ```
 
 If you want to verify the install script hasn't been tampered with:
 
 ```
 gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 0x29DDE9E0
-curl https://rtx.pub/install.sh.sig | gpg --decrypt > install.sh
-# ensure the above is signed with the rtx release key
+curl https://jkl.pub/install.sh.sig | gpg --decrypt > install.sh
+# ensure the above is signed with the jkl release key
 sh ./install.sh
 ```
 
 or if you're allergic to `| sh`:
 
 ```
-curl https://rtx.pub/rtx-latest-macos-arm64 > /usr/local/bin/rtx
+curl https://jkl.pub/jkl-latest-macos-arm64 > /usr/local/bin/jkl
 ```
 
-It doesn't matter where you put it. So use `~/bin`, `/usr/local/bin`, `~/.local/share/rtx/bin/rtx`
+It doesn't matter where you put it. So use `~/bin`, `/usr/local/bin`, `~/.local/share/jkl/bin/jkl`
 or whatever.
 
 Supported architectures:
@@ -280,18 +280,18 @@ Supported platforms:
 - `linux`
 
 If you need something else, compile it with [cargo](#cargo).
-[Windows isn't currently supported.](https://github.com/jdxcode/rtx/discussions/66)
+[Windows isn't currently supported.](https://github.com/jdxcode/jkl/discussions/66)
 
 #### Homebrew
 
 ```
-brew install rtx
+brew install jkl
 ```
 
 Alternatively, use the custom tap (which is updated immediately after a release)):
 
 ```
-brew install jdxcode/tap/rtx
+brew install jdxcode/tap/jkl
 ```
 
 #### Cargo
@@ -299,44 +299,44 @@ brew install jdxcode/tap/rtx
 Build from source with Cargo:
 
 ```
-cargo install rtx-cli
+cargo install jkl-cli
 ```
 
 Do it faster with [cargo-binstall](https://github.com/cargo-bins/cargo-binstall):
 
 ```
 cargo install cargo-binstall
-cargo binstall rtx-cli
+cargo binstall jkl-cli
 ```
 
 Build from the latest commit in main:
 
 ```
-cargo install rtx-cli --git https://github.com/jdxcode/rtx --branch main
+cargo install jkl-cli --git https://github.com/jdxcode/jkl --branch main
 ```
 
 #### npm
 
-rtx is available on npm as a precompiled binary. This isn't a node.js package—just distributed
-via npm. This is useful for JS projects that want to setup rtx via `package.json` or `npx`.
+jkl is available on npm as a precompiled binary. This isn't a node.js package—just distributed
+via npm. This is useful for JS projects that want to setup jkl via `package.json` or `npx`.
 
 ```
-npm install -g rtx-cli
+npm install -g jkl-cli
 ```
 
 Use npx if you just want to test it out for a single command without fully installing:
 
 ```
-npx rtx-cli exec python@3.11 -- python some_script.py
+npx jkl-cli exec python@3.11 -- python some_script.py
 ```
 
 #### GitHub Releases
 
-Download the latest release from [GitHub](https://github.com/jdxcode/rtx/releases).
+Download the latest release from [GitHub](https://github.com/jdxcode/jkl/releases).
 
 ```
-curl https://github.com/jdxcode/rtx/releases/download/v1.35.8/rtx-v1.35.8-linux-x64 > /usr/local/bin/rtx
-chmod +x /usr/local/bin/rtx
+curl https://github.com/jdxcode/jkl/releases/download/v1.35.8/jkl-v1.35.8-linux-x64 > /usr/local/bin/jkl
+chmod +x /usr/local/bin/jkl
 ```
 
 #### apt
@@ -345,10 +345,10 @@ For installation on Ubuntu/Debian:
 
 ```
 sudo install -dm 755 /etc/apt/keyrings
-wget -qO - https://rtx.pub/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/rtx-archive-keyring.gpg 1> /dev/null
-echo "deb [signed-by=/etc/apt/keyrings/rtx-archive-keyring.gpg arch=amd64] https://rtx.pub/deb stable main" | sudo tee /etc/apt/sources.list.d/rtx.list
+wget -qO - https://jkl.pub/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/jkl-archive-keyring.gpg 1> /dev/null
+echo "deb [signed-by=/etc/apt/keyrings/jkl-archive-keyring.gpg arch=amd64] https://jkl.pub/deb stable main" | sudo tee /etc/apt/sources.list.d/jkl.list
 sudo apt update
-sudo apt install -y rtx
+sudo apt install -y jkl
 ```
 
 > **Warning**
@@ -356,7 +356,7 @@ sudo apt install -y rtx
 > If you're on arm64 you'll need to run the following:
 >
 > ```
-> echo "deb [signed-by=/etc/apt/keyrings/rtx-archive-keyring.gpg arch=arm64] https://rtx.pub/deb stable main" | sudo tee /etc/apt/sources.list.d/rtx.list
+> echo "deb [signed-by=/etc/apt/keyrings/jkl-archive-keyring.gpg arch=arm64] https://jkl.pub/deb stable main" | sudo tee /etc/apt/sources.list.d/jkl.list
 > ```
 
 #### dnf
@@ -365,16 +365,16 @@ For Fedora, CentOS, Amazon Linux, RHEL and other dnf-based distributions:
 
 ```
 dnf install -y dnf-plugins-core
-dnf config-manager --add-repo https://rtx.pub/rpm/rtx.repo
-dnf install -y rtx
+dnf config-manager --add-repo https://jkl.pub/rpm/jkl.repo
+dnf install -y jkl
 ```
 
 #### yum
 
 ```
 yum install -y yum-utils
-yum-config-manager --add-repo https://rtx.pub/rpm/rtx.repo
-yum install -y rtx
+yum-config-manager --add-repo https://jkl.pub/rpm/jkl.repo
+yum install -y jkl
 ```
 
 #### apk
@@ -382,18 +382,18 @@ yum install -y rtx
 For Alpine Linux:
 
 ```
-apk add rtx
+apk add jkl
 ```
 
-_rtx lives in the [community repository](https://gitlab.alpinelinux.org/alpine/aports/-/blob/master/community/rtx/APKBUILD)._
+_jkl lives in the [community repository](https://gitlab.alpinelinux.org/alpine/aports/-/blob/master/community/jkl/APKBUILD)._
 
 #### aur
 
 For Arch Linux:
 
 ```
-git clone https://aur.archlinux.org/rtx.git
-cd rtx
+git clone https://aur.archlinux.org/jkl.git
+cd jkl
 makepkg -si
 ```
 
@@ -402,11 +402,11 @@ makepkg -si
 For the Nix package manager, at release 23.05 or later:
 
 ```
-nix-env -iA rtx
+nix-env -iA jkl
 ```
 
 You can also import the package directly using
-`rtx-flake.packages.${system}.rtx`. It supports all default Nix
+`jkl-flake.packages.${system}.jkl`. It supports all default Nix
 systems.
 
 ### Register shell hook
@@ -414,96 +414,96 @@ systems.
 #### Bash
 
 ```
-echo 'eval "$(rtx activate bash)"' >> ~/.bashrc
+echo 'eval "$(jkl activate bash)"' >> ~/.bashrc
 ```
 
 #### Fish
 
 ```
-echo 'rtx activate fish | source' >> ~/.config/fish/config.fish
+echo 'jkl activate fish | source' >> ~/.config/fish/config.fish
 ```
 
 #### Nushell
 
 ```nushell
 do {
-  let rtxpath = ($nu.config-path | path dirname | path join "rtx.nu")
-  run-external rtx activate nu --redirect-stdout | save $rtxpath -f
-  $"\nsource "($rtxpath)"" | save $nu.config-path --append
+  let jklpath = ($nu.config-path | path dirname | path join "jkl.nu")
+  run-external jkl activate nu --redirect-stdout | save $jklpath -f
+  $"\nsource "($jklpath)"" | save $nu.config-path --append
 }
 ```
 
 #### Xonsh
 
-Since `.xsh` files are [not compiled](https://github.com/xonsh/xonsh/issues/3953) you may shave a bit off startup time by using a pure Python import: add the code below to, for example, `~/.config/xonsh/rtx.py` config file and `import rtx` it in `~/.config/xonsh/rc.xsh`:
+Since `.xsh` files are [not compiled](https://github.com/xonsh/xonsh/issues/3953) you may shave a bit off startup time by using a pure Python import: add the code below to, for example, `~/.config/xonsh/jkl.py` config file and `import jkl` it in `~/.config/xonsh/rc.xsh`:
 
 ```xsh
 from pathlib        	import Path
 from xonsh.built_ins	import XSH
 
 ctx = XSH.ctx
-rtx_init = subprocess.run([Path('~/bin/rtx').expanduser(),'activate','xonsh'],capture_output=True,encoding="UTF-8").stdout
-XSH.builtins.execx(rtx_init,'exec',ctx,filename='rtx')
+jkl_init = subprocess.run([Path('~/bin/jkl').expanduser(),'activate','xonsh'],capture_output=True,encoding="UTF-8").stdout
+XSH.builtins.execx(jkl_init,'exec',ctx,filename='jkl')
 ```
 
 Or continue to use `rc.xsh`/`.xonshrc`:
 
 ```xsh
-echo 'execx($(~/bin/rtx activate xonsh))' >> ~/.config/xonsh/rc.xsh # or ~/.xonshrc
+echo 'execx($(~/bin/jkl activate xonsh))' >> ~/.config/xonsh/rc.xsh # or ~/.xonshrc
 ```
 
-Given that `rtx` replaces both shell env `$PATH` and OS environ `PATH`, watch out that your configs don't have these two set differently (might throw `os.environ['PATH'] = xonsh.built_ins.XSH.env.get_detyped('PATH')` at the end of a config to make sure they match)
+Given that `jkl` replaces both shell env `$PATH` and OS environ `PATH`, watch out that your configs don't have these two set differently (might throw `os.environ['PATH'] = xonsh.built_ins.XSH.env.get_detyped('PATH')` at the end of a config to make sure they match)
 
 #### Something else?
 
 Adding a new shell is not hard at all since very little shell code is
 in this project.
-[See here](https://github.com/jdxcode/rtx/tree/main/src/shell) for how
+[See here](https://github.com/jdxcode/jkl/tree/main/src/shell) for how
 the others are implemented. If your shell isn't currently supported
 I'd be happy to help you get yours integrated.
 
 ## Uninstalling
 
-Use `rtx implode` to uninstall rtx. This will remove the rtx binary and all of its data. Use
-`rtx implode --help` for more information.
+Use `jkl implode` to uninstall jkl. This will remove the jkl binary and all of its data. Use
+`jkl implode --help` for more information.
 
 Alternatively, manually remove the following directories to fully clean up:
 
-- `~/.local/share/rtx` (can also be `RTX_DATA_DIR` or `XDG_DATA_HOME/rtx`)
-- `~/.config/rtx` (can also be `RTX_CONFIG_DIR` or `XDG_CONFIG_HOME/rtx`)
-- on Linux: `~/.cache/rtx` (can also be `RTX_CACHE_DIR` or `XDG_CACHE_HOME/rtx`)
-- on macOS: `~/Library/Caches/rtx` (can also be `RTX_CACHE_DIR`)
+- `~/.local/share/jkl` (can also be `JKL_DATA_DIR` or `XDG_DATA_HOME/jkl`)
+- `~/.config/jkl` (can also be `JKL_CONFIG_DIR` or `XDG_CONFIG_HOME/jkl`)
+- on Linux: `~/.cache/jkl` (can also be `JKL_CACHE_DIR` or `XDG_CACHE_HOME/jkl`)
+- on macOS: `~/Library/Caches/jkl` (can also be `JKL_CACHE_DIR`)
 
 ## Shebang
 
 You can specify a tool and its version in a shebang without needing to first
-setup `.tool-versions`/`.rtx.toml` config:
+setup `.tool-versions`/`.jkl.toml` config:
 
 ```typescript
-#!/usr/bin/env -S rtx x node@20 -- node
+#!/usr/bin/env -S jkl x node@20 -- node
 // "env -S" allows multiple arguments in a shebang
 console.log(`Running node: ${process.version}`);
 ```
 
-This can also be useful in environments where rtx isn't activated
+This can also be useful in environments where jkl isn't activated
 (such as a non-interactive session).
 
 ## Configuration
 
-### `.rtx.toml`
+### `.jkl.toml`
 
-`.rtx.toml` is a new config file that replaces asdf-style `.tool-versions` files with a file
+`.jkl.toml` is a new config file that replaces asdf-style `.tool-versions` files with a file
 that has lot more flexibility. It supports functionality that is not possible with `.tool-versions`, such as:
 
 - setting arbitrary env vars while inside the directory
-- passing options to plugins like `virtualenv='.venv'` for [rtx-python](https://github.com/jdxcode/rtx-python#virtualenv-support).
+- passing options to plugins like `virtualenv='.venv'` for [jkl-python](https://github.com/jdxcode/jkl-python#virtualenv-support).
 - specifying custom plugin urls
 
-Here is what an `.rtx.toml` looks like:
+Here is what an `.jkl.toml` looks like:
 
 ```toml
 [env]
-# supports arbitrary env vars so rtx can be used like direnv/dotenv
+# supports arbitrary env vars so jkl can be used like direnv/dotenv
 NODE_ENV = 'production'
 
 [tools]
@@ -515,13 +515,13 @@ erlang = ['23.3', '24.0']
 node = ['16', 'prefix:20', 'ref:master', 'path:~/.nodes/14']
 
 # send arbitrary options to the plugin, passed as:
-# RTX_TOOL_OPTS__VENV=.venv
+# JKL_TOOL_OPTS__VENV=.venv
 python = {version='3.10', virtualenv='.venv'}
 
 [plugins]
 # specify a custom repo url
 # note this will only be used if the plugin does not already exist
-python = 'https://github.com/jdxcode/rtx-python'
+python = 'https://github.com/jdxcode/jkl-python'
 
 [settings] # project-local settings
 verbose = true
@@ -530,8 +530,8 @@ verbose = true
 my_custom_node = '20'
 ```
 
-`.rtx.toml` files are hierarchical. The configuration in a file in the current directory will
-override conflicting configuration in parent directories. For example, if `~/src/myproj/.rtx.toml`
+`.jkl.toml` files are hierarchical. The configuration in a file in the current directory will
+override conflicting configuration in parent directories. For example, if `~/src/myproj/.jkl.toml`
 defines the following:
 
 ```toml
@@ -540,7 +540,7 @@ node = '20'
 python = '3.10'
 ```
 
-And `~/src/myproj/backend/.rtx.toml` defines:
+And `~/src/myproj/backend/.jkl.toml` defines:
 
 ```toml
 [tools]
@@ -549,14 +549,14 @@ ruby = '3.1'
 ```
 
 Then when inside of `~/src/myproj/backend`, `node` will be `18`, `python` will be `3.10`, and `ruby`
-will be `3.1`. You can check the active versions with `rtx ls --current`.
+will be `3.1`. You can check the active versions with `jkl ls --current`.
 
-You can also have environment specific config files like `.rtx.production.toml`, see
+You can also have environment specific config files like `.jkl.production.toml`, see
 [Config Environments](#experimental-config-environments) for more details.
 
 #### `[env]` - Arbitrary Environment Variables
 
-The `[env]` section of .rtx.toml allows setting arbitrary environment variables.
+The `[env]` section of .jkl.toml allows setting arbitrary environment variables.
 These can be simple key/value entries like this:
 
 ```toml
@@ -570,7 +570,7 @@ NODE_ENV = 'production'
 env_path = [
     # adds an absolute path
     "~/.local/share/bin",
-    # adds a path relative to the .rtx.toml, not PWD
+    # adds a path relative to the .jkl.toml, not PWD
     "./node_modules/.bin",
 ]
 ```
@@ -599,12 +599,12 @@ NODE_ENV = false # unset a previously set NODE_ENV
 
 ### Legacy version files
 
-rtx supports "legacy version files" just like asdf. They're language-specific files like `.node-version`
+jkl supports "legacy version files" just like asdf. They're language-specific files like `.node-version`
 and `.python-version`. These are ideal for setting the runtime version of a project without forcing
-other developers to use a specific tool like rtx/asdf.
+other developers to use a specific tool like jkl/asdf.
 
 They support aliases, which means you can have an `.nvmrc` file with `lts/hydrogen` and it will work
-in rtx and nvm. Here are some of the supported legacy version files:
+in jkl and nvm. Here are some of the supported legacy version files:
 
 | Plugin     | "Legacy" (Idiomatic) Files                         |
 |------------|----------------------------------------------------|
@@ -618,7 +618,7 @@ in rtx and nvm. Here are some of the supported legacy version files:
 | terraform  | `.terraform-version`, `.packer-version`, `main.tf` |
 | yarn       | `.yarnrc`                                          |
 
-In rtx these are enabled by default. You can disable them with `rtx settings set legacy_version_file false`.
+In jkl these are enabled by default. You can disable them with `jkl settings set legacy_version_file false`.
 There is a performance cost to having these when they're parsed as it's performed by the plugin in
 `bin/parse-version-file`. However these are [cached](#cache-behavior) so it's not a huge deal.
 You may not even notice.
@@ -627,13 +627,13 @@ You may not even notice.
 >
 > asdf calls these "legacy version files" so we do too. I think this is a bad name since it implies
 > that they shouldn't be used—which is definitely not the case IMO. I prefer the term "idiomatic"
-> version files since they're version files not specific to asdf/rtx and can be used by other tools.
+> version files since they're version files not specific to asdf/jkl and can be used by other tools.
 > (`.nvmrc` being a notable exception, which is tied to a specific tool.)
 
 ### `.tool-versions`
 
-The `.tool-versions` file is asdf's config file and it can be used in rtx just like `.rtx.toml`.
-It isn't as flexible so it's recommended to use `.rtx.toml` instead. It can be useful if you
+The `.tool-versions` file is asdf's config file and it can be used in jkl just like `.jkl.toml`.
+It isn't as flexible so it's recommended to use `.jkl.toml` instead. It can be useful if you
 already have a lot of `.tool-versions` files or work on a team that uses asdf.
 
 Here is an example with all the supported syntax:
@@ -656,7 +656,7 @@ See [the asdf docs](https://asdf-vm.com/manage/configuration.html#tool-versions)
 
 ### Scopes
 
-Both `.rtx.toml` and `.tool-versions` support "scopes" which modify the behavior of the version:
+Both `.jkl.toml` and `.tool-versions` support "scopes" which modify the behavior of the version:
 
 * `ref:<SHA>` - compile from a vcs (usually git) ref
 * `prefix:<PREFIX>` - use the latest version that matches the prefix. Useful for Go since `1.20`
@@ -667,15 +667,15 @@ Both `.rtx.toml` and `.tool-versions` support "scopes" which modify the behavior
   be used to express something like "2 versions behind lts" such as `sub-2:lts`. Or 1 minor
   version behind the latest version: `sub-0.1:latest`.
 
-### Global config: `~/.config/rtx/config.toml`
+### Global config: `~/.config/jkl/config.toml`
 
-rtx can be configured in `~/.config/rtx/config.toml`. It's like local `.rtx.toml` files except that
+jkl can be configured in `~/.config/jkl/config.toml`. It's like local `.jkl.toml` files except that
 it is used for all directories.
 
 ```toml
 [tools]
 # global tool versions go here
-# you can set these with `rtx use -g`
+# you can set these with `jkl use -g`
 node = 'lts'
 python = ['3.10', '3.11']
 
@@ -685,13 +685,13 @@ python = ['3.10', '3.11']
 legacy_version_file = true                     # enabled by default (unlike asdf)
 legacy_version_file_disable_tools = ['python'] # disable for specific tools
 
-# configure `rtx install` to always keep the downloaded archive
+# configure `jkl install` to always keep the downloaded archive
 always_keep_download = false        # deleted after install by default
 always_keep_install = false         # deleted on failure by default
 
 # configure how frequently (in minutes) to fetch updated plugin repository changes
 # this is updated whenever a new runtime is installed
-# (note: this isn't currently implemented but there are plans to add it: https://github.com/jdxcode/rtx/issues/128)
+# (note: this isn't currently implemented but there are plans to add it: https://github.com/jdxcode/jkl/issues/128)
 plugin_autoupdate_last_check_duration = '1 week' # set to 0 to disable updates
 
 # config files with these prefixes will be trusted by default
@@ -699,67 +699,68 @@ trusted_config_paths = [
     '~/work/my-trusted-projects',
 ]
 
-verbose = false     # set to true to see full installation output, see `RTX_VERBOSE`
-asdf_compat = false # set to true to ensure .tool-versions will be compatible with asdf, see `RTX_ASDF_COMPAT`
+verbose = false     # set to true to see full installation output, see `JKL_VERBOSE`
+asdf_compat = false # set to true to ensure .tool-versions will be compatible with asdf, see `JKL_ASDF_COMPAT`
 jobs = 4            # number of plugins or runtimes to install in parallel. The default is `4`.
 raw = false         # set to true to directly pipe plugins to stdin/stdout/stderr
 
-shorthands_file = '~/.config/rtx/shorthands.toml' # path to the shorthands file, see `RTX_SHORTHANDS_FILE`
-disable_default_shorthands = false # disable the default shorthands, see `RTX_DISABLE_DEFAULT_SHORTHANDS`
+shorthands_file = '~/.config/jkl/shorthands.toml' # path to the shorthands file, see 
+`JKL_SHORTHANDS_FILE`
+disable_default_shorthands = false # disable the default shorthands, see `JKL_DISABLE_DEFAULT_SHORTHANDS`
 disable_tools = ['node']           # disable specific tools, generally used to turn off core tools
 
 experimental = false # enable experimental features
-log_level = 'debug' # log verbosity, see `RTX_LOG_LEVEL`
+log_level = 'debug' # log verbosity, see `JKL_LOG_LEVEL`
 
 [alias.node]
-my_custom_node = '20'  # makes `rtx install node@my_custom_node` install node-20.x
+my_custom_node = '20'  # makes `jkl install node@my_custom_node` install node-20.x
                        # this can also be specified in a plugin (see below in "Aliases")
 ```
 
-These settings can also be managed with `rtx settings ls|get|set|unset`.
+These settings can also be managed with `jkl settings ls|get|set|unset`.
 
 ### Environment variables
 
-rtx can also be configured via environment variables. The following options are available:
+jkl can also be configured via environment variables. The following options are available:
 
-#### `RTX_DATA_DIR`
+#### `JKL_DATA_DIR`
 
-This is the directory where rtx stores plugins and tool installs. The default location is `~/.local/share/rtx`.
+This is the directory where jkl stores plugins and tool installs. The default location is `~/.local/share/jkl`.
 
-#### `RTX_CACHE_DIR`
+#### `JKL_CACHE_DIR`
 
-This is the directory where rtx stores internal cache. The default location is `~/.cache/rtx` on
+This is the directory where jkl stores internal cache. The default location is `~/.cache/jkl` on
 Linux and
-`~/Library/Caches/rtx` on macOS.
+`~/Library/Caches/jkl` on macOS.
 
-#### `RTX_CONFIG_FILE`
+#### `JKL_CONFIG_FILE`
 
-This is the path to the config file. The default is `~/.config/rtx/config.toml`.
+This is the path to the config file. The default is `~/.config/jkl/config.toml`.
 (Or `$XDG_CONFIG_HOME/config.toml` if that is set)
 
-#### `RTX_DEFAULT_TOOL_VERSIONS_FILENAME`
+#### `JKL_DEFAULT_TOOL_VERSIONS_FILENAME`
 
-Set to something other than ".tool-versions" to have rtx look for `.tool-versions` files but with
+Set to something other than ".tool-versions" to have jkl look for `.tool-versions` files but with
 a different name.
 
-#### `RTX_DEFAULT_CONFIG_FILENAME`
+#### `JKL_DEFAULT_CONFIG_FILENAME`
 
-Set to something other than `.rtx.toml` to have rtx look for `.rtx.toml` config files with a different name.
+Set to something other than `.jkl.toml` to have jkl look for `.jkl.toml` config files with a different name.
 
-#### [experimental] `RTX_ENV`
+#### [experimental] `JKL_ENV`
 
-Enables environment-specific config files such as `.rtx.development.toml`.
+Enables environment-specific config files such as `.jkl.development.toml`.
 Use this for different env vars or different tool versions in
 development/staging/production environments. See
 [Config Environments](#experimental-config-environments) for more on how
 to use this feature.
 
-#### `RTX_${PLUGIN}_VERSION`
+#### `JKL_${PLUGIN}_VERSION`
 
-Set the version for a runtime. For example, `RTX_NODE_VERSION=20` will use node@20.x regardless
-of what is set in `.tool-versions`/`.rtx.toml`.
+Set the version for a runtime. For example, `JKL_NODE_VERSION=20` will use node@20.x regardless
+of what is set in `.tool-versions`/`.jkl.toml`.
 
-#### `RTX_LEGACY_VERSION_FILE=1`
+#### `JKL_LEGACY_VERSION_FILE=1`
 
 Plugins can read the versions files used by other version managers (if enabled by the plugin)
 for example, `.nvmrc` in the case of node's nvm. See [legacy version files](#legacy-version-files) for more
@@ -767,70 +768,70 @@ information.
 
 Set to "0" to disable legacy version file parsing.
 
-#### `RTX_LEGACY_VERSION_FILE_DISABLE_TOOLS=node,python`
+#### `JKL_LEGACY_VERSION_FILE_DISABLE_TOOLS=node,python`
 
 Disable legacy version file parsing for specific tools. Separate with `,`.
 
-#### `RTX_USE_TOML=0`
+#### `JKL_USE_TOML=0`
 
-Set to `1` to default to using `.rtx.toml` in `rtx local` instead of `.tool-versions` for
+Set to `1` to default to using `.jkl.toml` in `jkl local` instead of `.tool-versions` for
 configuration. This will be default behavior once we hit the [Calver](#versioning) release.
 
-For now this is not used by `rtx use` which will only use `.rtx.toml` unless `--path` is specified.
+For now this is not used by `jkl use` which will only use `.jkl.toml` unless `--path` is specified.
 
-#### `RTX_TRUSTED_CONFIG_PATHS`
+#### `JKL_TRUSTED_CONFIG_PATHS`
 
-This is a list of paths that rtx will automatically mark as
+This is a list of paths that jkl will automatically mark as
 trusted. They can be separated with `:`.
 
-#### `RTX_LOG_LEVEL=trace|debug|info|warn|error`
+#### `JKL_LOG_LEVEL=trace|debug|info|warn|error`
 
-These change the verbosity of rtx.
+These change the verbosity of jkl.
 
-You can also use `RTX_DEBUG=1`, `RTX_TRACE=1`, and `RTX_QUIET=1` as well as
+You can also use `JKL_DEBUG=1`, `JKL_TRACE=1`, and `JKL_QUIET=1` as well as
 `--log-level=trace|debug|info|warn|error`.
 
-#### `RTX_LOG_FILE=~/rtx.log`
+#### `JKL_LOG_FILE=~/jkl.log`
 
 Output logs to a file.
 
-#### `RTX_LOG_FILE_LEVEL=trace|debug|info|warn|error`
+#### `JKL_LOG_FILE_LEVEL=trace|debug|info|warn|error`
 
-Same as `RTX_LOG_LEVEL` but for the log _file_ output level. This is useful if you want
+Same as `JKL_LOG_LEVEL` but for the log _file_ output level. This is useful if you want
 to store the logs but not have them litter your display.
 
-#### `RTX_ALWAYS_KEEP_DOWNLOAD=1`
+#### `JKL_ALWAYS_KEEP_DOWNLOAD=1`
 
 Set to "1" to always keep the downloaded archive. By default it is deleted after install.
 
-#### `RTX_ALWAYS_KEEP_INSTALL=1`
+#### `JKL_ALWAYS_KEEP_INSTALL=1`
 
 Set to "1" to always keep the install directory. By default it is deleted on failure.
 
-#### `RTX_VERBOSE=1`
+#### `JKL_VERBOSE=1`
 
-This shows the installation output during `rtx install` and `rtx plugin install`.
-This should likely be merged so it behaves the same as `RTX_DEBUG=1` and we don't have
+This shows the installation output during `jkl install` and `jkl plugin install`.
+This should likely be merged so it behaves the same as `JKL_DEBUG=1` and we don't have
 2 configuration for the same thing, but for now it is its own config.
 
-#### `RTX_ASDF_COMPAT=1`
+#### `JKL_ASDF_COMPAT=1`
 
-Only output `.tool-versions` files in `rtx local|global` which will be usable by asdf.
-This disables rtx functionality that would otherwise make these files incompatible with asdf.
+Only output `.tool-versions` files in `jkl local|global` which will be usable by asdf.
+This disables jkl functionality that would otherwise make these files incompatible with asdf.
 
-#### `RTX_JOBS=1`
+#### `JKL_JOBS=1`
 
 Set the number plugins or runtimes to install in parallel. The default is `4`.
 
-#### `RTX_RAW=1`
+#### `JKL_RAW=1`
 
 Set to "1" to directly pipe plugin scripts to stdin/stdout/stderr. By default stdin is disabled
 because when installing a bunch of plugins in parallel you won't see the prompt. Use this if a
 plugin accepts input or otherwise does not seem to be installing correctly.
 
-Sets `RTX_JOBS=1` because only 1 plugin script can be executed at a time.
+Sets `JKL_JOBS=1` because only 1 plugin script can be executed at a time.
 
-#### `RTX_SHORTHANDS_FILE=~/.config/rtx/shorthands.toml`
+#### `JKL_SHORTHANDS_FILE=~/.config/jkl/shorthands.toml`
 
 Use a custom file for the shorthand aliases. This is useful if you want to share plugins within
 an organization.
@@ -838,35 +839,35 @@ an organization.
 The file should be in this toml format:
 
 ```toml
-elixir = "https://github.com/my-org/rtx-elixir.git"
-node = "https://github.com/my-org/rtx-node.git"
+elixir = "https://github.com/my-org/jkl-elixir.git"
+node = "https://github.com/my-org/jkl-node.git"
 ```
 
-#### `RTX_DISABLE_DEFAULT_SHORTHANDS=1`
+#### `JKL_DISABLE_DEFAULT_SHORTHANDS=1`
 
 Disables the shorthand aliases for installing plugins. You will have to specify full urls when
-installing plugins, e.g.: `rtx plugin install node https://github.com/asdf-vm/asdf-node.git`
+installing plugins, e.g.: `jkl plugin install node https://github.com/asdf-vm/asdf-node.git`
 
-#### `RTX_DISABLE_TOOLS=python,node`
+#### `JKL_DISABLE_TOOLS=python,node`
 
 Disables the specified tools. Separate with `,`. Generally used for core plugins but works with
 all.
 
-#### `RTX_CONFIRM=yes|no`
+#### `JKL_CONFIRM=yes|no`
 
 This will automatically answer yes or no to prompts. This is useful for scripting.
 
-#### `RTX_EXPERIMENTAL=1`
+#### `JKL_EXPERIMENTAL=1`
 
 Enables experimental features.
 
 ## Aliases
 
-rtx supports aliasing the versions of runtimes. One use-case for this is to define aliases for LTS
+jkl supports aliasing the versions of runtimes. One use-case for this is to define aliases for LTS
 versions of runtimes. For example, you may want to specify `lts-hydrogen` as the version for node@20.x
-so you can use set it with `node lts-hydrogen` in `.tool-versions`/`.rtx.toml`.
+so you can use set it with `node lts-hydrogen` in `.tool-versions`/`.jkl.toml`.
 
-User aliases can be created by adding an `alias.<PLUGIN>` section to `~/.config/rtx/config.toml`:
+User aliases can be created by adding an `alias.<PLUGIN>` section to `~/.config/jkl/config.toml`:
 
 ```toml
 [alias.node]
@@ -886,12 +887,12 @@ echo "lts-fermium 14"
 
 > **Note:**
 >
-> Because this is rtx-specific functionality not currently used by asdf it isn't likely to be in any
+> Because this is jkl-specific functionality not currently used by asdf it isn't likely to be in any
 > plugin currently, but plugin authors can add this script without impacting asdf users.
 
 ## Plugins
 
-rtx uses asdf's plugin ecosystem under the hood. These plugins contain shell scripts like
+jkl uses asdf's plugin ecosystem under the hood. These plugins contain shell scripts like
 `bin/install` (for installing) and `bin/list-all` (for listing all of the available versions).
 
 See https://github.com/asdf-vm/asdf-plugins for the list of built-in plugins shorthands. See asdf's
@@ -900,7 +901,7 @@ more about how they work.
 
 ### Plugin Options
 
-rtx has support for "plugin options" which is configuration specified in `.rtx.toml` to change behavior
+jkl has support for "plugin options" which is configuration specified in `.jkl.toml` to change behavior
 of plugins. One example of this is virtualenv on python runtimes:
 
 ```toml
@@ -908,7 +909,7 @@ of plugins. One example of this is virtualenv on python runtimes:
 python = {version='3.11', virtualenv='.venv'}
 ```
 
-This will be passed to all plugin scripts as `RTX_TOOL_OPTS__VIRTUALENV=.venv`. The user can specify
+This will be passed to all plugin scripts as `JKL_TOOL_OPTS__VIRTUALENV=.venv`. The user can specify
 any option and it will be passed to the plugin in that format.
 
 Currently this only supports simple strings, but we can make it compatible with more complex types
@@ -916,11 +917,11 @@ Currently this only supports simple strings, but we can make it compatible with 
 
 ## Versioning
 
-rtx is currently a new project and is under very rapid development. Slight behavior changes may
+jkl is currently a new project and is under very rapid development. Slight behavior changes may
 occur between releases.
 Features marked as "experimental" may change significantly or be removed entirely.
 
-Starting August 6, 2023\*, rtx will move to [Calver](https://calver.org/) versioning (`2023.6.1`). After the move to Calver, rtx's design will become mostly permanent and you will be able to rely on
+Starting August 6, 2023\*, jkl will move to [Calver](https://calver.org/) versioning (`2023.6.1`). After the move to Calver, jkl's design will become mostly permanent and you will be able to rely on
 its behavior for the long term.
 Breaking changes will be few but when they do happen,
 they will be communicated in the CLI with plenty of notice whenever possible.
@@ -938,66 +939,66 @@ _\*This plan is tentative and the details may change, but the rough idea of maki
 
 ### Calver Breaking Changes
 
-When we switch to Calver, we'll immediately make some notable design changes to rtx. This will
+When we switch to Calver, we'll immediately make some notable design changes to jkl. This will
 be the first and last time that such a change is made and I actually want to make sure we make
 as many as we can—because we'll be stuck with these decisions.
 
 Here are a list of the changes that will be made:
 
-- `rtx local` will default to creating `.rtx.toml` instead of `.tool-versions`. (If the config
+- `jkl local` will default to creating `.jkl.toml` instead of `.tool-versions`. (If the config
   already exists the format will be preserved.)
-- `rtx global` will modify `~/.config/rtx/config.toml` instead of `~/.tool-versions`. This path
-  can be changed with `RTX_CONFIG_FILE`.
+- `jkl global` will modify `~/.config/jkl/config.toml` instead of `~/.tool-versions`. This path
+  can be changed with `JKL_CONFIG_FILE`.
 - (more to be added)
 
 ## Directories
 
-The following are the directories that rtx uses.
+The following are the directories that jkl uses.
 These are the default directories, see
 [Configuration](#configuration) for information on changing the locations.
 
 > **Tip**
 >
-> If you often find yourself using these directories (as I do), I suggest setting all of them to `~/.rtx` for easy access.
+> If you often find yourself using these directories (as I do), I suggest setting all of them to `~/.jkl` for easy access.
 
-### `~/.config/rtx`
+### `~/.config/jkl`
 
-This directory stores the global configuration file `~/.config/rtx/config.toml`.
+This directory stores the global configuration file `~/.config/jkl/config.toml`.
 
-### `~/.cache/rtx`
+### `~/.cache/jkl`
 
-_On macOS this is `~/Library/Caches/rtx`._
+_On macOS this is `~/Library/Caches/jkl`._
 
-Stores internal cache that rtx uses for things like the list of all available versions of a
+Stores internal cache that jkl uses for things like the list of all available versions of a
 plugin.
 See [Cache Behavior](#cache-behavior) for more information.
 
-### `~/.local/share/rtx`
+### `~/.local/share/jkl`
 
-This is the main directory that rtx uses and is where plugins and tools are installed into.
+This is the main directory that jkl uses and is where plugins and tools are installed into.
 It is nearly identical to `~/.asdf` in asdf, so much so that you may be able to get by
-symlinking these together and using asdf and rtx simultaneously. (Supporting this isn't a
+symlinking these together and using asdf and jkl simultaneously. (Supporting this isn't a
 project goal, however).
 
-#### `~/.local/share/rtx/downloads`
+#### `~/.local/share/jkl/downloads`
 
 This is where plugins may optionally cache downloaded assets such as tarballs. Use the
-`always_keep_downloads` setting to prevent rtx from removing files from here.
+`always_keep_downloads` setting to prevent jkl from removing files from here.
 
-#### `~/.local/share/rtx/plugins`
+#### `~/.local/share/jkl/plugins`
 
-rtx installs plugins to this directory when running `rtx plugins install`. If you are working on a
+jkl installs plugins to this directory when running `jkl plugins install`. If you are working on a
 plugin, I suggest
 symlinking it manually by running:
 
 ```
-ln -s ~/src/rtx-my-tool ~/.local/share/rtx/plugins/my-tool
+ln -s ~/src/jkl-my-tool ~/.local/share/jkl/plugins/my-tool
 ```
 
-#### `~/.local/share/rtx/installs`
+#### `~/.local/share/jkl/installs`
 
-This is where tools are installed to when running `rtx install`. For example, `rtx install
-node@20.0.0` will install to `~/.local/share/rtx/installs/node/20.0.0`
+This is where tools are installed to when running `jkl install`. For example, `jkl install
+node@20.0.0` will install to `~/.local/share/jkl/installs/node/20.0.0`
 
 This will also create other symlinks to this directory for version prefixes ("20" and "20.15")
 and matching aliases ("lts", "latest").
@@ -1010,9 +1011,9 @@ latest -> ./20.15.0
 lts -> ./20.15.0
 ```
 
-#### `~/.local/share/rtx/shims`
+#### `~/.local/share/jkl/shims`
 
-This is where rtx places shims. Generally these are used for IDE integration or if `rtx activate`
+This is where jkl places shims. Generally these are used for IDE integration or if `jkl activate`
 does not work for some reason.
 
 ## Templates
@@ -1024,13 +1025,13 @@ does not work for some reason.
 Templates are used in the following locations:
 
 - `.tool-versions` files
-- `.rtx.toml` files for most configuration
+- `.jkl.toml` files for most configuration
 - _(Submit a ticket if you want to see it used elsewhere!)_
 
 The following context objects are available inside templates:
 
 - `env: HashMap<String, String>` – current environment variables
-- `config_root: PathBuf` – directory containing the `.rtx.toml` file
+- `config_root: PathBuf` – directory containing the `.jkl.toml` file
 
 As well as these functions:
 
@@ -1053,54 +1054,54 @@ current = "{{exec(command='node --version')}}"
 
 ## [experimental] Config Environments
 
-It's possible to have separate `.rtx.toml` files in the same directory for different
+It's possible to have separate `.jkl.toml` files in the same directory for different
 environments like `development` and `production`. To enable, set
-`experimental = true` in `~/.config/rtx/config.toml`, then set `RTX_ENV` to an environment like
-`development` or `production`. rtx will then look for a `.rtx.{RTX_ENV}.toml` file in the current directory.
+`experimental = true` in `~/.config/jkl/config.toml`, then set `JKL_ENV` to an environment like
+`development` or `production`. jkl will then look for a `.jkl.{JKL_ENV}.toml` file in the current directory.
 
-rtx will also look for "local" files like `.rtx.local.toml` and `.rtx.{RTX_ENV}.local.toml` in
+jkl will also look for "local" files like `.jkl.local.toml` and `.jkl.{JKL_ENV}.local.toml` in
 the current directory. These are intended to not be committed to version control.
-(Add `rtx.*.local.toml` to your `.gitignore` file.)
+(Add `jkl.*.local.toml` to your `.gitignore` file.)
 
 The priority of these files goes in this order (bottom overrides top):
 
-* `.rtx.toml`
-* `.rtx.local.toml`
-* `.rtx.{RTX_ENV}.toml`
-* `.rtx.{RTX_ENV}.local.toml`
+* `.jkl.toml`
+* `.jkl.local.toml`
+* `.jkl.{JKL_ENV}.toml`
+* `.jkl.{JKL_ENV}.local.toml`
 
-Use `rtx doctor` to see which files are being used.
+Use `jkl doctor` to see which files are being used.
 
-_Note that currently modifying `RTX_DEFAULT_CONFIG_FILENAME` to something other than `.rtx.toml`
+_Note that currently modifying `JKL_DEFAULT_CONFIG_FILENAME` to something other than `.jkl.toml`
 will not work with this feature. For now, it will disable it entirely. This may change in the
 future._
 
 ## IDE Integration
 
 IDEs work better with shims than they do environment variable modifications. The simplest way is
-to add the rtx shim directory to PATH.
+to add the jkl shim directory to PATH.
 
 For IntelliJ and VSCode—and likely others, you can modify `~/.zprofile`
 with the following:
 
 ```
-export PATH="$HOME/.local/share/rtx/shims:$PATH"
+export PATH="$HOME/.local/share/jkl/shims:$PATH"
 ```
 
-This won't work for all of rtx's functionality. For example, arbitrary env vars in `[env]` will only be set
+This won't work for all of jkl's functionality. For example, arbitrary env vars in `[env]` will only be set
 if a shim is executed. For this we need tighter integration with the IDE and a custom plugin. If you feel
-ambitious, take a look at existing direnv extensions for your IDE and see if you can modify it to work for rtx.
-Direnv and rtx work similarly and there should be a direnv extension that can be used as a starting point.
+ambitious, take a look at existing direnv extensions for your IDE and see if you can modify it to work for jkl.
+Direnv and jkl work similarly and there should be a direnv extension that can be used as a starting point.
 
 Alternatively, you may be able to get tighter integration with a direnv extension and using the
-[`use_rtx`](#direnv) direnv function.
+[`use_jkl`](#direnv) direnv function.
 
 ## Core Plugins
 
-rtx comes with some plugins built into the CLI written in Rust. These are new and will improve over
-time. They can be easily overridden by installing a plugin with the same name, e.g.: `rtx plugin install python`.
+jkl comes with some plugins built into the CLI written in Rust. These are new and will improve over
+time. They can be easily overridden by installing a plugin with the same name, e.g.: `jkl plugin install python`.
 
-You can see the core plugins with `rtx plugin ls --core`.
+You can see the core plugins with `jkl plugin ls --core`.
 
 * [Python](./docs/python.md)
 * [NodeJS](./docs/node.md)
@@ -1122,29 +1123,29 @@ You can make git ignore these files in 3 different ways:
 
 ### What is the difference between "nodejs" and "node" (or "golang" and "go")?
 
-These are aliased. For example, `rtx use nodejs@14.0` is the same as `rtx install node@14.0`. This
+These are aliased. For example, `jkl use nodejs@14.0` is the same as `jkl install node@14.0`. This
 means it is not possible to have these be different plugins.
 
 This is for convenience so you don't need to remember which one is the "official" name. However if
 something with the aliasing is acting up, submit a ticket or just stick to using "node" and "go".
-Under the hood, when rtx reads a config file or takes CLI input it will swap out "nodejs" and
+Under the hood, when jkl reads a config file or takes CLI input it will swap out "nodejs" and
 "golang".
 
 While this change is rolling out, there is some migration code that will move installs/plugins from
 the "nodejs" and "golang" directories to the new names. If this runs for you you'll see a message
 but it should not run again unless there is some kind of problem. In this case, it's probably
-easiest to just run `rm -rf ~/.local/share/rtx/installs/{golang,nodejs} ~/.local/share/rtx/plugins/{golang,nodejs}`.
+easiest to just run `rm -rf ~/.local/share/jkl/installs/{golang,nodejs} ~/.local/share/jkl/plugins/{golang,nodejs}`.
 
 Once most users have migrated over this migration code will be removed.
 
-### What does `rtx activate` do?
+### What does `jkl activate` do?
 
-It registers a shell hook to run `rtx hook-env` every time the shell prompt is displayed.
-`rtx hook-env` checks the current env vars (most importantly `PATH` but there are others like
+It registers a shell hook to run `jkl hook-env` every time the shell prompt is displayed.
+`jkl hook-env` checks the current env vars (most importantly `PATH` but there are others like
 `GOROOT` or `JAVA_HOME` for some tools) and adds/removes/updates the ones that have changed.
 
 For example, if you `cd` into a different directory that has `java 18` instead of `java 17`
-specified, just before the next prompt is displayed the shell runs: `eval "$(rtx hook-env)"`
+specified, just before the next prompt is displayed the shell runs: `eval "$(jkl hook-env)"`
 which will execute something like this in the current shell session:
 
 ```sh
@@ -1155,78 +1156,78 @@ export PATH=$HOME/.local/share/installs/java/18/bin:$PATH
 In reality updating `PATH` is a bit more complex than that because it also needs to remove java-17,
 but you get the idea.
 
-You may think that is excessive to run `rtx hook-env` every time the prompt is displayed
+You may think that is excessive to run `jkl hook-env` every time the prompt is displayed
 and it should only run on `cd`, however there are plenty of
 situations where it needs to run without the directory changing, for example if `.tool-versions` or
-`.rtx.toml` was just edited in the current shell.
+`.jkl.toml` was just edited in the current shell.
 
-Because it runs on prompt display, if you attempt to use `rtx activate` in a
-non-interactive session (like a bash script), it will never call `rtx hook-env` and in effect will
+Because it runs on prompt display, if you attempt to use `jkl activate` in a
+non-interactive session (like a bash script), it will never call `jkl hook-env` and in effect will
 never modify PATH because it never displays a prompt. For this type of setup, you can either call
-`rtx hook-env` manually every time you wish to update PATH, or use [shims](#shims) instead (preferred).
-Or if you only need to use rtx for certain commands, just prefix the commands with
-[`rtx x --`](#rtx-exec-options-toolversion----command).
-For example, `rtx x -- npm test` or `rtx x -- ./my_script.sh`.
+`jkl hook-env` manually every time you wish to update PATH, or use [shims](#shims) instead (preferred).
+Or if you only need to use jkl for certain commands, just prefix the commands with
+[`jkl x --`](#jkl-exec-options-toolversion----command).
+For example, `jkl x -- npm test` or `jkl x -- ./my_script.sh`.
 
-`rtx hook-env` will exit early in different situations if no changes have been made. This prevents
-adding latency to your shell prompt every time you run a command. You can run `rtx hook-env` yourself
+`jkl hook-env` will exit early in different situations if no changes have been made. This prevents
+adding latency to your shell prompt every time you run a command. You can run `jkl hook-env` yourself
 to see what it outputs, however it is likely nothing if you're in a shell that has already been activated.
 
-`rtx activate` also creates a shell function (in most shells) called `rtx`.
-This is a trick that makes it possible for `rtx shell`
-and `rtx deactivate` to work without wrapping them in `eval "$(rtx shell)"`.
+`jkl activate` also creates a shell function (in most shells) called `jkl`.
+This is a trick that makes it possible for `jkl shell`
+and `jkl deactivate` to work without wrapping them in `eval "$(jkl shell)"`.
 
-### `rtx activate` doesn't work in `~/.profile`, `~/.bash_profile`, `~/.zprofile`
+### `jkl activate` doesn't work in `~/.profile`, `~/.bash_profile`, `~/.zprofile`
 
-`rtx activate` should only be used in `rc` files. These are the interactive ones used when
+`jkl activate` should only be used in `rc` files. These are the interactive ones used when
 a real user is using the terminal. (As opposed to being executed by an IDE or something). The prompt
 isn't displayed in non-interactive environments so PATH won't be modified.
 
 For non-interactive setups, consider using shims instead which will route calls to the correct
-directory by looking at `PWD` every time they're executed. You can also call `rtx exec` instead of
-expecting things to be directly on PATH. You can also run `rtx env` in a non-interactive shell, however that
+directory by looking at `PWD` every time they're executed. You can also call `jkl exec` instead of
+expecting things to be directly on PATH. You can also run `jkl env` in a non-interactive shell, however that
 will only setup the global tools. It won't modify the environment variables when entering into a
 different project.
 
-Also see the [shebang](#shebang) example for a way to make scripts call rtx to get the runtime.
-That is another way to use rtx without activation.
+Also see the [shebang](#shebang) example for a way to make scripts call jkl to get the runtime.
+That is another way to use jkl without activation.
 
-### rtx is failing or not working right
+### jkl is failing or not working right
 
-First try setting `RTX_DEBUG=1` or `RTX_TRACE=1` and see if that gives you more information.
-You can also set `RTX_LOG_FILE_LEVEL=debug RTX_LOG_FILE=/path/to/logfile` to write logs to a file.
+First try setting `JKL_DEBUG=1` or `JKL_TRACE=1` and see if that gives you more information.
+You can also set `JKL_LOG_FILE_LEVEL=debug JKL_LOG_FILE=/path/to/logfile` to write logs to a file.
 
-If something is happening with the activate hook, you can try disabling it and calling `eval "$(rtx hook-env)"` manually.
-It can also be helpful to use `rtx env` which will just output environment variables that would be set.
+If something is happening with the activate hook, you can try disabling it and calling `eval "$(jkl hook-env)"` manually.
+It can also be helpful to use `jkl env` which will just output environment variables that would be set.
 Also consider using [shims](#shims) which can be more compatible.
 
 If runtime installation isn't working right, try using the `--raw` flag which will install things in
 series and connect stdin/stdout/stderr directly to the terminal. If a plugin is trying to interact
 with you for some reason this will make it work.
 
-Of course check the version of rtx with `rtx --version` and make sure it is the latest. Use `rtx self-update`
-to update it. `rtx cache clean` can be used to wipe the internal cache and `rtx implode` can be used
+Of course check the version of jkl with `jkl --version` and make sure it is the latest. Use `jkl self-update`
+to update it. `jkl cache clean` can be used to wipe the internal cache and `jkl implode` can be used
 to remove everything except config.
 
 Before submitting a ticket, it's a good idea to test what you were doing with asdf. That way we can rule
-out if the issue is with rtx or if it's with a particular plugin. For example, if `rtx install python@latest`
+out if the issue is with jkl or if it's with a particular plugin. For example, if `jkl install python@latest`
 doesn't work, try running `asdf install python latest` to see if it's an issue with asdf-python.
 
-Lastly, there is `rtx doctor` which will show diagnostic information and any warnings about issues
-detected with your setup. If you submit a bug report, please include the output of `rtx doctor`.
+Lastly, there is `jkl doctor` which will show diagnostic information and any warnings about issues
+detected with your setup. If you submit a bug report, please include the output of `jkl doctor`.
 
 ### Windows support?
 
-This is something we'd like to add! https://github.com/jdxcode/rtx/discussions/66
+This is something we'd like to add! https://github.com/jdxcode/jkl/discussions/66
 
 It's not a near-term goal and it would require plugin modifications, but it should be feasible.
 
-### How do I use rtx with http proxies?
+### How do I use jkl with http proxies?
 
 Short answer: just set `http_proxy` and `https_proxy` environment variables. These should be lowercase.
 
-rtx doesn't really do anything with http itself. The only exception to that is checking for new versions
-and `rtx self-update`. It uses `git` to clone plugins and the plugins themselves generally will download
+jkl doesn't really do anything with http itself. The only exception to that is checking for new versions
+and `jkl self-update`. It uses `git` to clone plugins and the plugins themselves generally will download
 files with `curl` or `wget`.
 
 However this is really up to the plugin. If you're having a proxy-related issue installing something
@@ -1234,52 +1235,52 @@ you should post an issue on the plugin's repo.
 
 ### How do the shorthand plugin names map to repositories?
 
-e.g.: how does `rtx plugin install node` know to fetch [https://github.com/rtx-plugins/rtx-nodejs]
-(https://github.com/rtx-plugins/rtx-nodejs)?
+e.g.: how does `jkl plugin install node` know to fetch [https://github.com/jkl-plugins/jkl-nodejs]
+(https://github.com/jkl-plugins/jkl-nodejs)?
 
-asdf maintains [an index](https://github.com/asdf-vm/asdf-plugins) of shorthands that rtx uses as a base.
-This is regularly updated every time that rtx has a release. This repository is stored directly into
+asdf maintains [an index](https://github.com/asdf-vm/asdf-plugins) of shorthands that jkl uses as a base.
+This is regularly updated every time that jkl has a release. This repository is stored directly into
 the codebase [here](./src/default_shorthands.rs). The bottom of that file contains modifications that
-rtx makes on top of asdf.
+jkl makes on top of asdf.
 
 ### Does "node@20" mean the newest available version of node?
 
 It depends on the command. Normally, for most commands and inside of config files, "node@20" will
 point to the latest _installed_ version of node-20.x. You can find this version by running
-`rtx latest --installed node@20` or by seeing what the `~/.local/share/rtx/installs/node/20` symlink
+`jkl latest --installed node@20` or by seeing what the `~/.local/share/jkl/installs/node/20` symlink
 points to:
 
 ```sh-session
-$ ls -l ~/.local/share/rtx/installs/node/20
-[...] /home/jdxcode/.local/share/rtx/installs/node/20 -> node-v20.0.0-linux-x64
+$ ls -l ~/.local/share/jkl/installs/node/20
+[...] /home/jdxcode/.local/share/jkl/installs/node/20 -> node-v20.0.0-linux-x64
 ```
 
 There are some exceptions to this, such as the following:
 
-* `rtx install node@20`
-* `rtx latest node@20`
-* `rtx upgrade node@20`
+* `jkl install node@20`
+* `jkl latest node@20`
+* `jkl upgrade node@20`
 
 These will use the latest _available_ version of node-20.x. This generally makes sense because you
 wouldn't want to install a version that is already installed.
 
 ### How do I migrate from asdf?
 
-First, just install rtx with `rtx activate` like in the getting started guide and remove asdf from your
+First, just install jkl with `jkl activate` like in the getting started guide and remove asdf from your
 shell rc file.
 
-Then you can just run `rtx install` in a directory with an asdf `.tool-versions` file and it will
+Then you can just run `jkl install` in a directory with an asdf `.tool-versions` file and it will
 install the runtimes. You could attempt to avoid this by copying the internal directory from asdf over
-to rtx with `cp -r ~/.asdf ~/.local/share/rtx`. That _should_ work because they use the same structure,
-however this isn't officially supported or regularly tested. Alternatively you can set `RTX_DATA_DIR=~/.asdf`
+to jkl with `cp -r ~/.asdf ~/.local/share/jkl`. That _should_ work because they use the same structure,
+however this isn't officially supported or regularly tested. Alternatively you can set `JKL_DATA_DIR=~/.asdf`
 and see what happens.
 
-### How compatible is rtx with asdf?
+### How compatible is jkl with asdf?
 
-rtx should be able to read/install any `.tool-versions` file used by asdf. Any asdf plugin
-should be usable in rtx. The commands in rtx are slightly
-different, such as `rtx install node@20.0.0` vs `asdf install node 20.0.0`—this is done so
-multiple tools can be specified at once. However, asdf-style syntax is still supported: (`rtx
+jkl should be able to read/install any `.tool-versions` file used by asdf. Any asdf plugin
+should be usable in jkl. The commands in jkl are slightly
+different, such as `jkl install node@20.0.0` vs `asdf install node 20.0.0`—this is done so
+multiple tools can be specified at once. However, asdf-style syntax is still supported: (`jkl
 install node 20.0.0`). This is the case for most commands, though the help for the command may
 say that asdf-style syntax is supported.
 
@@ -1291,40 +1292,40 @@ This isn't important for usability reasons so much as making it so plugins conti
 call asdf commands.
 
 If you need to switch to/from asdf or work in a project with asdf users, you can set
-[`RTX_ASDF_COMPAT=1`](#rtx_asdf_compat1). That prevents
-rtx from writing `.tool-versions` files that will not be
-compatible with asdf. Also consider using `.rtx.toml` instead which won't conflict with asdf setups.
+[`JKL_ASDF_COMPAT=1`](#jkl_asdf_compat1). That prevents
+jkl from writing `.tool-versions` files that will not be
+compatible with asdf. Also consider using `.jkl.toml` instead which won't conflict with asdf setups.
 
-### rtx isn't working when calling from tmux or another shell initialization script
+### jkl isn't working when calling from tmux or another shell initialization script
 
-`rtx activate` will not update PATH until the shell prompt is displayed. So if you need to access a
-tool provided by rtx before the prompt is displayed you must manually call `hook-env`:
+`jkl activate` will not update PATH until the shell prompt is displayed. So if you need to access a
+tool provided by jkl before the prompt is displayed you must manually call `hook-env`:
 
 ```bash
-eval "$(rtx activate bash)"
-eval "$(rtx hook-env)"
+eval "$(jkl activate bash)"
+eval "$(jkl hook-env)"
 python --version # will work only after calling hook-env explicitly
 ```
 
-For more information, see [What does `rtx activate` do?](#what-does-rtx-activate-do)
+For more information, see [What does `jkl activate` do?](#what-does-jkl-activate-do)
 
 ### How do I disable/force CLI color output?
 
-rtx uses [console.rs](https://docs.rs/console/latest/console/fn.colors_enabled.html) which
+jkl uses [console.rs](https://docs.rs/console/latest/console/fn.colors_enabled.html) which
 honors the [clicolors spec](https://bixense.com/clicolors/):
 
 * `CLICOLOR != 0`: ANSI colors are supported and should be used when the program isn’t piped.
 * `CLICOLOR == 0`: Don’t output ANSI color escape codes.
 * `CLICOLOR_FORCE != 0`: ANSI colors should be enabled no matter what.
 
-### Is rtx secure?
+### Is jkl secure?
 
 Not as much as it should be, though currently a bit more secure than asdf. Work will happen in this area as secure
 supply chains are incredibly important. See [SECURITY.md](./SECURITY.md) for more information.
 
 ## Comparison to asdf
 
-rtx is mostly a clone of asdf, but there are notable areas where improvements have been made.
+jkl is mostly a clone of asdf, but there are notable areas where improvements have been made.
 
 ### Performance
 
@@ -1332,46 +1333,46 @@ asdf made (what I consider) a poor design decision to use shims that go between 
 and the runtime itself. e.g.: when you call `node` it will call an asdf shim file `~/.asdf/shims/node`,
 which then calls `asdf exec`, which then calls the correct version of node.
 
-These shims have terrible performance, adding ~120ms to every runtime call. rtx does not use shims and instead
+These shims have terrible performance, adding ~120ms to every runtime call. jkl does not use shims and instead
 updates `PATH` so that it doesn't have any overhead when simply calling binaries. These shims are the main reason that I wrote this. Note that in the demo gif at the top of this README
-that `rtx` isn't actually used when calling `node -v` for this reason. The performance is
-identical to running node without using rtx.
+that `jkl` isn't actually used when calling `node -v` for this reason. The performance is
+identical to running node without using jkl.
 
 I don't think it's possible for asdf to fix these issues. The author of asdf did a great writeup
 of [performance problems](https://stratus3d.com/blog/2022/08/11/asdf-performance/). asdf is written
 in bash which certainly makes it challenging to be performant, however I think the real problem is the
 shim design. I don't think it's possible to fix that without a complete rewrite.
 
-rtx does call an internal command `rtx hook-env` every time the directory has changed, but because
+jkl does call an internal command `jkl hook-env` every time the directory has changed, but because
 it's written in Rust, this is very quick—taking ~10ms on my machine. 4ms if there are no changes, 14ms if it's
 a full reload.
 
-tl;dr: asdf adds overhead (~120ms) when calling a runtime, rtx adds a small amount of overhead (~10ms)
+tl;dr: asdf adds overhead (~120ms) when calling a runtime, jkl adds a small amount of overhead (~10ms)
 when the prompt loads.
 
-### Environment variables in rtx
+### Environment variables in jkl
 
 asdf only helps manage runtime executables. However, some tools are managed via environment variables
 (notably Java which switches via `JAVA_HOME`). This isn't supported very well in asdf and requires
 a separate shell extension just to manage.
 
 However asdf _plugins_ have a `bin/exec-env` script that is used for exporting environment variables
-like [`JAVA_HOME`](https://github.com/halcyon/asdf-java/blob/master/bin/exec-env). rtx simply exports
+like [`JAVA_HOME`](https://github.com/halcyon/asdf-java/blob/master/bin/exec-env). jkl simply exports
 the environment variables from the `bin/exec-env` script in the plugin but places them in the shell
 for _all_ commands. In asdf it only exports those commands when the shim is called. This means if you
 call `java` it will set `JAVA_HOME`, but not if you call some Java tool like `mvn`.
 
-This means we're just using the existing plugin script but because rtx doesn't use shims it can be
+This means we're just using the existing plugin script but because jkl doesn't use shims it can be
 used for more things. It would be trivial to make a plugin that exports arbitrary environment
 variables like [dotenv](https://github.com/motdotla/dotenv) or [direnv](https://github.com/direnv/direnv).
 
 ### UX
 
 Some commands are the same in asdf but others have been changed. Everything that's possible
-in asdf should be possible in rtx but may use slightly different syntax. rtx has more forgiving commands,
-such as using fuzzy-matching, e.g.: `rtx install node@20`. While in asdf you _can_ run
+in asdf should be possible in jkl but may use slightly different syntax. jkl has more forgiving commands,
+such as using fuzzy-matching, e.g.: `jkl install node@20`. While in asdf you _can_ run
 `asdf install node latest:20`, you can't use `latest:20` in a `.tool-versions` file or many other places.
-In `rtx` you can use fuzzy-matching everywhere.
+In `jkl` you can use fuzzy-matching everywhere.
 
 asdf requires several steps to install a new runtime if the plugin isn't installed, e.g.:
 
@@ -1381,15 +1382,15 @@ asdf install node latest:20
 asdf local node latest:20
 ```
 
-In `rtx` this can all be done in a single step to set the local runtime version. If the plugin
+In `jkl` this can all be done in a single step to set the local runtime version. If the plugin
 and/or runtime needs to be installed it will prompt:
 
 [![asciicast](https://asciinema.org/a/564031.svg)](https://asciinema.org/a/564031)
 
 I've found asdf to be particularly rigid and difficult to learn. It also made strange decisions like
 having `asdf list all` but `asdf latest --all` (why is one a flag and one a positional argument?).
-`rtx` makes heavy use of aliases so you don't need to remember if it's `rtx plugin add node` or
-`rtx plugin install node`. If I can guess what you meant, then I'll try to get rtx to respond
+`jkl` makes heavy use of aliases so you don't need to remember if it's `jkl plugin add node` or
+`jkl plugin install node`. If I can guess what you meant, then I'll try to get jkl to respond
 in the right way.
 
 That said, there are a lot of great things about asdf. It's the best multi-runtime manager out there
@@ -1398,70 +1399,70 @@ were very good. I really just have 2 complaints: the shims and the fact it's wri
 
 ### CI/CD
 
-Using rtx in CI/CD is a great way to synchronize tool versions for dev/build.
+Using jkl in CI/CD is a great way to synchronize tool versions for dev/build.
 
 ### GitHub Actions
 
-Use [`jdxcode/rtx-action`](https://github.com/jdxcode/rtx-action):
+Use [`jdxcode/jkl-action`](https://github.com/jdxcode/jkl-action):
 
 ```yaml
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: jdxcode/rtx-action@v1
-      - run: node -v # will be the node version from `.rtx.toml`/`.tool-versions`
+      - uses: jdxcode/jkl-action@v1
+      - run: node -v # will be the node version from `.jkl.toml`/`.tool-versions`
 ```
 
 ## Shims
 
-While the PATH design of rtx works great in most cases, there are some situations where shims are
-preferable. One example is when calling rtx binaries from an IDE.
+While the PATH design of jkl works great in most cases, there are some situations where shims are
+preferable. One example is when calling jkl binaries from an IDE.
 
-To support this, rtx does have a shim dir that can be used. It's located at `~/.local/share/rtx/shims`.
+To support this, jkl does have a shim dir that can be used. It's located at `~/.local/share/jkl/shims`.
 
 ```sh-session
-$ rtx i node@20.0.0
-$ rtx reshim # may be required if new shims need to be created
-$ ~/.local/share/rtx/shims/node -v
+$ jkl i node@20.0.0
+$ jkl reshim # may be required if new shims need to be created
+$ ~/.local/share/jkl/shims/node -v
 v20.0.0
 ```
 
 ## direnv
 
-[direnv](https://direnv.net) and rtx both manage environment variables based on directory. Because they both analyze
+[direnv](https://direnv.net) and jkl both manage environment variables based on directory. Because they both analyze
 the current environment variables before and after their respective "hook" commands are run, they can sometimes conflict with each other.
 
 If you have an issue, it's likely to do with the ordering of PATH. This means it would
-really only be a problem if you were trying to manage the same tool with direnv and rtx. For example,
+really only be a problem if you were trying to manage the same tool with direnv and jkl. For example,
 you may use `layout python` in an `.envrc` but also be maintaining a `.tool-versions` file with python
 in it as well.
 
 A more typical usage of direnv would be to set some arbitrary environment variables, or add unrelated
-binaries to PATH. In these cases, rtx will not interfere with direnv.
+binaries to PATH. In these cases, jkl will not interfere with direnv.
 
-### rtx inside of direnv (`use rtx` in `.envrc`)
+### jkl inside of direnv (`use jkl` in `.envrc`)
 
-If you do encounter issues with `rtx activate`, or just want to use direnv in an alternate way,
+If you do encounter issues with `jkl activate`, or just want to use direnv in an alternate way,
 this is a simpler setup that's less likely to cause issues—at the cost of functionality.
 
-This may be required if you want to use direnv's `layout python` with rtx. Otherwise there are
-situations where rtx will override direnv's PATH. `use rtx` ensures that direnv always has control.
+This may be required if you want to use direnv's `layout python` with jkl. Otherwise there are
+situations where jkl will override direnv's PATH. `use jkl` ensures that direnv always has control.
 
-To do this, first use `rtx` to build a `use_rtx` function that you can use in `.envrc` files:
+To do this, first use `jkl` to build a `use_jkl` function that you can use in `.envrc` files:
 
 ```
-rtx direnv activate > ~/.config/direnv/lib/use_rtx.sh
+jkl direnv activate > ~/.config/direnv/lib/use_jkl.sh
 ```
 
 Now in your `.envrc` file add the following:
 
 ```sh-session
-use rtx
+use jkl
 ```
 
-direnv will now call rtx to export its environment variables. You'll need to make sure to add `use_rtx`
-to all projects that use rtx (or use direnv's `source_up` to load it from a subdirectory). You can also add `use rtx` to `~/.config/direnv/direnvrc`.
+direnv will now call jkl to export its environment variables. You'll need to make sure to add `use_jkl`
+to all projects that use jkl (or use direnv's `source_up` to load it from a subdirectory). You can also add `use jkl` to `~/.config/direnv/direnvrc`.
 
 Note that in this method direnv typically won't know to refresh `.tool-versions` files
 unless they're at the same level as a `.envrc` file. You'll likely always want to have
@@ -1470,29 +1471,29 @@ easier to manage, I encourage _not_ actually using `.tool-versions` at all, and 
 setting environment variables entirely in `.envrc`:
 
 ```
-export RTX_NODE_VERSION=20.0.0
-export RTX_PYTHON_VERSION=3.11
+export JKL_NODE_VERSION=20.0.0
+export JKL_PYTHON_VERSION=3.11
 ```
 
-Of course if you use `rtx activate`, then these steps won't have been necessary and you can use rtx
+Of course if you use `jkl activate`, then these steps won't have been necessary and you can use jkl
 as if direnv was not used.
 
 If you continue to struggle, you can also try using the [shims method](#shims).
 
 ### Do you need direnv?
 
-While making rtx compatible with direnv is, and will always be a major goal of this project, I also
-want rtx to be capable of replacing direnv if needed. This is why rtx includes support for managing
-env vars and [virtualenv](https://github.com/jdxcode/rtx-python#experimental-virtualenv-support)
-for python using `.rtx.toml`.
+While making jkl compatible with direnv is, and will always be a major goal of this project, I also
+want jkl to be capable of replacing direnv if needed. This is why jkl includes support for managing
+env vars and [virtualenv](https://github.com/jdxcode/jkl-python#experimental-virtualenv-support)
+for python using `.jkl.toml`.
 
 If you find you continue to need direnv, please open an issue and let me know what it is to see if
-it's something rtx could support. rtx will never be as capable as direnv with a DSL like `.envrc`,
+it's something jkl could support. jkl will never be as capable as direnv with a DSL like `.envrc`,
 but I think we can handle enough common use cases to make that unnecessary for most people.
 
 ## Cache Behavior
 
-rtx makes use of caching in many places in order to be efficient. The details about how long to keep
+jkl makes use of caching in many places in order to be efficient. The details about how long to keep
 cache for should eventually all be configurable. There may be gaps in the current behavior where
 things are hardcoded, but I'm happy to add more settings to cover whatever config is needed.
 
@@ -1501,8 +1502,8 @@ to be updating, this is a good place to start.
 
 ### Plugin/Runtime Cache
 
-Each plugin has a cache that's stored in `~/$RTX_CACHE_DIR/<PLUGIN>`. It stores
-the list of versions available for that plugin (`rtx ls-remote <PLUGIN>`), the legacy filenames (see below),
+Each plugin has a cache that's stored in `~/$JKL_CACHE_DIR/<PLUGIN>`. It stores
+the list of versions available for that plugin (`jkl ls-remote <PLUGIN>`), the legacy filenames (see below),
 the list of aliases, the bin directories within each runtime installation, and the result of
 running `exec-env` after the runtime was installed.
 
@@ -1510,7 +1511,7 @@ Remote versions are updated daily by default. The file is zlib messagepack, if y
 run the following (requires [msgpack-cli](https://github.com/msgpack/msgpack-cli)).
 
 ```sh-session
-cat ~/$RTX_CACHE_DIR/node/remote_versions.msgpack.z | perl -e 'use Compress::Raw::Zlib;my $d=new Compress::Raw::Zlib::Inflate();my $o;undef $/;$d->inflate(<>,$o);print $o;' | msgpack-cli decode
+cat ~/$JKL_CACHE_DIR/node/remote_versions.msgpack.z | perl -e 'use Compress::Raw::Zlib;my $d=new Compress::Raw::Zlib::Inflate();my $o;undef $/;$d->inflate(<>,$o);print $o;' | msgpack-cli decode
 ```
 
 Note that the caching of `exec-env` may be problematic if the script isn't simply exporting
@@ -1518,14 +1519,14 @@ static values. The vast majority of `exec-env` scripts only export static values
 working with a plugin that has a dynamic `exec-env` submit
 a ticket and we can try to figure out what to do.
 
-Caching `exec-env` massively improved the performance of rtx since it requires calling bash
-every time rtx is initialized. Ideally, we can keep this
+Caching `exec-env` massively improved the performance of jkl since it requires calling bash
+every time jkl is initialized. Ideally, we can keep this
 behavior.
 
-<!-- RTX:COMMANDS -->
+<!-- JKL:COMMANDS -->
 ## Commands
 
-### `rtx activate [OPTIONS] [SHELL_TYPE]`
+### `jkl activate [OPTIONS] [SHELL_TYPE]`
 
 ```
 Initializes rtx in the current shell
@@ -1790,7 +1791,7 @@ Examples:
 Manage environment variables
 
 By default this command modifies ".rtx.toml" in the current directory.
-You can specify the file name by either setting the RTX_DEFAULT_CONFIG_FILENAME environment variable, or by using the --file option.
+You can specify the file name by either setting the JKL_DEFAULT_CONFIG_FILENAME environment variable, or by using the --file option.
 
 Usage: env-vars [OPTIONS] [ENV_VARS]...
 
@@ -1803,7 +1804,7 @@ Options:
       --file <FILE>
           The TOML file to update
 
-          Defaults to RTX_DEFAULT_CONFIG_FILENAME environment variable, or ".rtx.toml".
+          Defaults to JKL_DEFAULT_CONFIG_FILENAME environment variable, or ".rtx.toml".
 
       --remove <ENV_VAR>
           Remove the environment variable from config file
@@ -1877,7 +1878,7 @@ It won't be used simply by being installed, however.
 For that, you must set up a `.rtx.toml`/`.tool-version` file manually or with `rtx use`.
 Or you can call a tool version explicitly with `rtx exec <TOOL>@<VERSION> -- <COMMAND>`.
 
-Tools will be installed in parallel. To disable, set `--jobs=1` or `RTX_JOBS=1`
+Tools will be installed in parallel. To disable, set `--jobs=1` or `JKL_JOBS=1`
 
 Usage: install [OPTIONS] [TOOL@VERSION]...
 
@@ -2225,7 +2226,7 @@ Delete unused versions of tools
 
 rtx tracks which config files have been used in ~/.local/share/rtx/tracked_config_files
 Versions which are no longer the latest specified in any of those configs are deleted.
-Versions installed only with environment variables (`RTX_<PLUGIN>_VERSION`) will be deleted,
+Versions installed only with environment variables (`JKL_<PLUGIN>_VERSION`) will be deleted,
 as will versions only referenced on the command line (`rtx exec <PLUGIN>@<VERSION>`).
 
 Usage: prune [OPTIONS] [PLUGINS]...
@@ -2499,7 +2500,7 @@ Options:
       --fuzzy
           Save fuzzy version to config file
           e.g.: `rtx use --fuzzy node@20` will save `node 20` to ~/.tool-versions
-          this is the default behavior unless RTX_ASDF_COMPAT=1
+          this is the default behavior unless JKL_ASDF_COMPAT=1
 
       --remove <TOOL>
           Remove the tool(s) from config file
@@ -2584,4 +2585,4 @@ Examples:
   $ rtx which node --version
   20.0.0
 ```
-<!-- RTX:COMMANDS -->
+<!-- JKL:COMMANDS -->
